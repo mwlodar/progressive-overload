@@ -1,0 +1,64 @@
+<form #logSetForm="ngForm" (ngSubmit)="save(logSetForm)" novalidate>
+  <ion-grid>
+
+    <ion-row>
+
+      <ion-col>
+        <ion-item>
+          <ion-label stacked>Completed Weight(lbs)</ion-label>
+          <ion-input type="number" [(ngModel)]="data.completedWeight" name="completedWeight" #completedWeight="ngModel" required></ion-input>
+        </ion-item> 
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+
+      <ion-col>
+        <ion-item>
+          <ion-label stacked>Completed Reps</ion-label>
+          <ion-select [(ngModel)]="data.completedReps" name="completedReps" #completedReps="ngModel" required>
+            <ion-option placeholder="@" *ngFor="let rep of repsOptions" [value]="rep">{{rep}}</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-item>
+          <ion-label stacked>Completed Intensity</ion-label>
+          <ion-select [(ngModel)]="data.completedRPE" name="completedRPE" #completedRPE="ngModel" required>
+            <ion-option placeholder="@" *ngFor="let intensity of intensityOptions" [value]="intensity">{{intensity}}</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+
+      <ion-col>
+        <ion-item>
+          <ion-label stacked>Goal Reps</ion-label>
+          <ion-select [(ngModel)]="data.goalReps" name="goalReps" #goalReps="ngModel" required>
+            <ion-option placeholder="@" *ngFor="let rep of repsOptions" [value]="rep">{{rep}}</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-item>
+          <ion-label stacked>Goal Intensity</ion-label>
+          <ion-select [(ngModel)]="data.goalRPE" name="goalRPE" #goalRPE="ngModel" required>
+            <ion-option placeholder="@" *ngFor="let intensity of intensityOptions" [value]="intensity">{{intensity}}</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row margin float-right>
+      <button block type="submit" color="secondary" ion-button [disabled]="logSetForm.invalid">Calculate</button>
+    </ion-row>
+
+  </ion-grid>
+</form>

@@ -1,0 +1,29 @@
+<ion-card>
+
+  <ion-item>
+    <ion-label>Workout Date:</ion-label>
+    <ion-datetime (ionChange)="selectDate()" displayFormat="DDD MMM DD YYYY" [(ngModel)]="exerciseLogEntry.date" name="date"
+      #date="ngModel" required></ion-datetime>
+  </ion-item>
+
+  <ion-item *ngIf="exercises$ && !exerciseLogEntry.exercise && exerciseLogEntry.date">
+    <ion-label floating>Choose Exercise</ion-label>
+    <ion-select [(ngModel)]="exerciseLogEntry.exercise" #exerciseSelector>
+      <ion-option (ionSelect)="selectExercise($event)" *ngFor="let exercise of exercises$ | async" [value]="exercise.name">{{exercise.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item text-center *ngIf="exerciseLogEntry.exercise">
+    <ion-icon name="close" color="danger" (click)="resetMovement()" item-end></ion-icon>
+    <h1 color="primary">{{exerciseLogEntry.exercise}}</h1>
+  </ion-item>
+
+  <set-log-form (sendSetData)="retrieveSetData($event)"></set-log-form>
+
+  <ion-grid>
+    <ion-row>
+      <button margin ion-button block color="secondary" *ngIf="exerciseLogEntry.exercise" (click)="finishExercise()" [disabled]="disable">Save Exercise</button>
+    </ion-row>
+  </ion-grid>
+
+</ion-card>

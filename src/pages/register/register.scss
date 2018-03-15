@@ -1,0 +1,20 @@
+page-register {
+    .invalid {
+        color: color($colors, danger);
+    }
+
+    ion-item {
+        background-color: color($colors, background-66) !important;
+    }
+
+    ion-label {
+        color: color($colors, dark) !important;
+    }
+
+    .logo {
+        margin: 20px auto;
+        display: block;
+        width: 75%;
+    }
+    
+}

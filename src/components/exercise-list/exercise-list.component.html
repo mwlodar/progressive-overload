@@ -1,0 +1,37 @@
+<ion-list *ngFor="let ex of exerciseList$ | async">
+
+  <ion-item>
+    <h1>{{ex?.exercise}}</h1>
+    <button ion-button item-end icon-only color="danger" (click)="deleteEx(ex.key)">
+      <ion-icon name="trash"></ion-icon>
+    </button>
+    <button ion-button item-end color="primary" (click)="addSet(ex)">Add Set</button>
+  </ion-item>
+
+  <ion-item class="global__extra_padding_horizontal" text-wrap *ngFor="let set of ex.sets | keys">
+
+    <span class="gray">
+      Set {{set?.value.set}}:
+      <span [hidden]="!set?.value.reps" class="gray">{{set?.value.reps}} x</span>
+      <span [hidden]="!set?.value.weight" class="gray">{{set?.value.weight + 'lbs'}}</span>
+      <span [hidden]="!set?.value.intensity" class="gray">{{'@'+set?.value.intensity}}</span>
+      <span [hidden]="!set?.value.note" class="gray">
+        <br> Note: {{set?.note}}</span>
+    </span>
+    <br>
+    <span *ngIf="set?.value.results" class="green">
+      Set {{set?.value.results.set}}:
+      <span [hidden]="!set?.value.results.reps" class="green">{{set?.value.results.reps}} x</span>
+      <span [hidden]="!set?.value.results.weight" class="green">{{set?.value.results.weight + 'lbs'}}</span>
+      <span [hidden]="!set?.value.results.intensity" class="green">{{'@'+set?.value.results.intensity}}</span>
+      <span [hidden]="!set?.value.results.note" class="green">
+        <br> Note: {{set?.value.results.note}}</span>
+    </span>
+
+    <button ion-button item-end icon-only color="danger" (click)="delete(set.key, ex.key)" *ngIf="!set?.value.results">
+      <ion-icon name="trash"></ion-icon>
+    </button>
+    <button ion-button item-end color="edit" (click)="edit(set.value, ex.key)" *ngIf="!set?.value.results">Edit</button>
+
+  </ion-item>
+</ion-list>

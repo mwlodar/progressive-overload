@@ -1,0 +1,16 @@
+<ion-list>
+
+  <ion-list-header text-center>
+    <ion-icon item-start name="arrow-back" (click)="incrementDate('down')"></ion-icon>
+    {{formattedDate}} 
+    <ion-icon item-end name="arrow-forward" (click)="incrementDate('up')"></ion-icon>
+  </ion-list-header>
+
+  <ion-item *ngFor="let ex of exerciseList$ | async"> 
+    {{ex?.exercise}}
+
+    <button *ngIf="!ex?.completed" ion-button item-end color="edit" (click)="nav(ex)">Log Now</button>
+    <button *ngIf="ex?.completed" ion-button item-end color="secondary" (click)="nav(ex)">Completed</button>
+  </ion-item>
+
+</ion-list>

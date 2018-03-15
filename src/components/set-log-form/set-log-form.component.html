@@ -1,0 +1,59 @@
+<form *ngIf="showForm" #logSetForm="ngForm" (ngSubmit)="save(logSetForm)" novalidate>
+  <ion-card>
+    <ion-grid>
+      <ion-row *ngIf="showCloseButton">
+        <ion-item>
+          <button ion-button item-end clear color="dark" click="showform = false">
+            <ion-icon name="close"></ion-icon>
+          </button>
+        </ion-item>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Set</ion-label>
+            <ion-input type="number" [(ngModel)]="set.set" name="set" #name="ngModel" required></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label>Reps</ion-label>
+            <ion-input type="number" [(ngModel)]="set.reps" name="reps" #reps="ngModel"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label stacked>{{weightLabel}}</ion-label>
+            <ion-input type="number" [(ngModel)]="set.weight" name="weight" #weight="ngModel"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label stacked>Intensity</ion-label>
+            <ion-select [(ngModel)]="set.intensity" name="intensity" #intensity="ngModel">
+              <ion-option placeholder="@" *ngFor="let intensity of intensityOptions" [value]="intensity">{{intensity}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label stacked>Note</ion-label>
+            <ion-input type="text-area" [(ngModel)]="set.note" name="note" #note="ngModel"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row margin float-right>
+        <!-- <button block ion-button color="danger" *ngIf="set.key" (click)="deleteSet(set)">Delete Set</button>   -->
+        <button block type="submit" color="secondary" ion-button [disabled]="logSetForm.invalid">{{logSetText}}</button>
+      </ion-row>
+
+    </ion-grid>
+  </ion-card>
+</form>

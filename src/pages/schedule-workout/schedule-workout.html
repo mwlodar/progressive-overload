@@ -1,0 +1,14 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Schedule Workout</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <exercise-log-form (resetExercise)="retrieveResetExercise($event)" (sendSetData)="retrieveSet($event)" (sendExerciseSelection)="retrieveExerciseSelection($event)" (sendExerciseLogEntry)="retrieveExerciseLogEntry($event)" [exerciseLogEntry]="workout.active_data" (sendDate)="retrieveDate($event)"></exercise-log-form>
+  <exercise-list [exerciseListRef]="exercisesRef" (sendDeleteEx)="retrieveDeleteEx($event)" (sendDeleteSet)="retrieveDeleteSet($event)" (sendEditSet)="retrieveEditSet($event)" (sendAddSet)="retrieveAddSet($event)"></exercise-list>    
+</ion-content>

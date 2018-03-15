@@ -1,0 +1,64 @@
+<form #createExerciseForm="ngForm" (ngSubmit)="save(createExerciseForm)" novalidate>
+  <ion-card>
+    <ion-card-content>
+
+      <ion-item>
+        <ion-label stacked>Name</ion-label>
+        <ion-input placeholder="Squat" type="text" [(ngModel)]="exercise.name" name="name" #name="ngModel" required></ion-input>
+      </ion-item>
+
+      <div padding *ngIf="name.invalid && name.dirty">
+        <span class="global__input-error">Name is required.</span>
+      </div>
+
+      <ion-item>
+        <ion-label stacked>Specifications(optional)</ion-label>
+        <ion-input placeholder="Belt, No Belt, High Bar, Low Bar, etc." type="text-area" [(ngModel)]="exercise.specs" name="specs"
+          #specs="ngModel"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Video Link(optional)</ion-label>
+        <ion-input placeholder="https://www.youtube.com/watch?v=Yw3s1JTExkU&t=639s" type="text" [(ngModel)]="url" name="url"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Exercise Type</ion-label>
+        <ion-select [(ngModel)]="exercise.type" name="type" #type="ngModel" required>
+          <ion-option *ngFor="let type of typeOptions" [value]="type">{{type}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="exercise.type === 'Other'">
+        <ion-label stacked>Other Type</ion-label>
+        <ion-input placeholder="Enter a custom type" type="text" [(ngModel)]="exercise.otherType" name="otherType" #otherType="ngModel"
+          required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Exercise Slot</ion-label>
+        <ion-select [(ngModel)]="exercise.slot" name="slot" #slot="ngModel" required>
+          <ion-option *ngFor="let slot of slotOptions" [value]="slot">{{slot}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="exercise.slot === 'Other'">
+        <ion-label stacked>Other Slot</ion-label>
+        <ion-input placeholder="Enter a custom slot" slot="text" [(ngModel)]="exercise.otherSlot" name="otherSlot" #otherSlot="ngModel"
+          required></ion-input>
+      </ion-item>
+
+
+    </ion-card-content>
+    <ion-row margin-right float-right>
+      <button type="submit" ion-button [disabled]="createExerciseForm.invalid">Save</button>
+    </ion-row>
+  </ion-card>
+</form>
+
+<ion-list>
+  <ion-item *ngFor="let exercise of exerciseList$ | async"> 
+    {{exercise.name}}
+    <ion-icon item-right name="trash" (click)="deleteExercise(exercise)"></ion-icon>
+  </ion-item>
+</ion-list>

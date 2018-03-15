@@ -1,0 +1,34 @@
+<ion-item *ngIf="exercises$">
+  <ion-label floating>Choose Exercise</ion-label>
+  <ion-select [(ngModel)]="selection.exercise" #exerciseSelector>
+    <ion-option (ionSelect)="selectExercise($event)" *ngFor="let exercise of exercises$ | async" [value]="exercise.name">{{exercise.name}}</ion-option>
+  </ion-select>
+</ion-item>
+<ion-item>
+  <ion-label floating>Choose Metric</ion-label>
+  <ion-select [(ngModel)]="selection.metric" #metricSelector>
+    <ion-option (ionSelect)="selectMetric(metric)" *ngFor="let metric of metrics" [value]="metric">{{metric.name | titlecase}}</ion-option>
+  </ion-select>
+</ion-item>
+
+<ion-card>
+    <ion-card-content>
+      <canvas #lineCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
+
+<ion-list *ngIf="selection?.exercise">
+  <ion-item text-wrap *ngFor="let ex of exTracker?.slice().reverse()">
+    {{ex.completedDate}}
+    <ion-item *ngFor="let set of ex?.sets">
+      <span class="gray">
+        Set {{set?.results.set}}:
+        <span [hidden]="!set?.results.reps" class="gray">{{set?.results.reps}} x</span>
+        <span [hidden]="!set?.results.weight" class="gray">{{set?.results.weight + 'lbs'}}</span>
+        <span [hidden]="!set?.results.intensity" class="gray">{{'@'+set?.results.intensity}}</span>
+        <span [hidden]="!set?.results.note" class="gray">
+          <br> Note: {{set?.results.note}}</span>
+      </span>
+    </ion-item>
+  </ion-item>
+</ion-list>

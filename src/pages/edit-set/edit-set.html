@@ -1,0 +1,14 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Set #{{set?.set}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>    
+  <set-log-form [set]="set" (sendSetData)="retrieveSetData($event)"></set-log-form>
+
+</ion-content>

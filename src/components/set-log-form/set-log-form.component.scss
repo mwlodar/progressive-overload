@@ -1,0 +1,11 @@
+set-log-form {
+    ion-col {
+        border: 1px solid lightgray;
+    }
+
+    ion-list {
+        ion-item {
+            border: 1px solid lightgray !important;
+        }
+    }
+}

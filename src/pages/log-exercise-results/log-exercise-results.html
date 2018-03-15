@@ -1,0 +1,46 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{scheduledExercise?.exercise}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-list>
+    <ion-item *ngFor="let set of sets">
+
+      <span *ngIf="!set.results" class="gray">
+        Set {{set?.set}}:
+        <span [hidden]="!set?.reps" class="gray">{{set?.reps}} x</span>
+        <span [hidden]="!set?.weight" class="gray">{{set?.weight + 'lbs'}}</span>
+        <span [hidden]="!set?.intensity" class="gray">{{'@'+set?.intensity}}</span>
+        <span [hidden]="!set?.note" class="gray">
+          <br> Note: {{set?.note}}</span>
+      </span>
+
+      <span *ngIf="set.results" class="green">
+        Set {{set?.results.set}}:
+        <span [hidden]="!set?.results.reps" class="green">{{set?.results.reps}} x</span>
+        <span [hidden]="!set?.results.weight" class="green">{{set?.results.weight + 'lbs'}}</span>
+        <span [hidden]="!set?.results.intensity" class="green">{{'@'+set?.results.intensity}}</span>
+        <span [hidden]="!set?.results.note" class="green">
+          <br> Note: {{set?.results.note}}</span>
+      </span>
+
+      <button *ngIf="!set.results" ion-button item-end color="edit" (click)="logSet(set)">Enter Results</button>
+      <button *ngIf="set.results" ion-button item-end color="secondary" (click)="logSet(set.results)">Edit Results</button>
+    </ion-item>
+  </ion-list>
+
+  <set-log-form (sendSetData)="retrieveSetData($event)" [showCloseButton]="true"></set-log-form>
+
+  <timer *ngIf="!setForm.showForm"></timer>
+
+  <ion-fab right bottom> 
+      <button ion-fab color="secondary" (click)="openComponentModal()"><ion-icon name="calculator"></ion-icon></button>
+      </ion-fab>
+
+</ion-content>
